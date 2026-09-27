@@ -262,12 +262,10 @@ The next version of this project will focus on evolving the architecture toward 
 
 Planned improvements include:
 
+- Evolve the current two-tier architecture into a **three-tier architecture** with separate presentation, application, and database layers.
 - Move EC2 instances into private subnets.
 - Add an Application Load Balancer (ALB) for traffic distribution.
 - Add NAT Gateways for controlled outbound internet access from private subnets.
 - Introduce an Auto Scaling Group for the application tier.
 - Use AWS Secrets Manager for database credentials.
-- Add HTTPS using AWS Certificate Manager.
-- Implement CloudWatch monitoring, logging, and alerting.
-- Integrate CI/CD for automated infrastructure and application deployments.
 - Strengthen network and IAM security controls.

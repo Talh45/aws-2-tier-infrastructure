@@ -59,8 +59,9 @@ Internet Gateway
                               │ TCP 3306
                               ▼
                      Private RDS MySQL
+```
 
-## AWS Services Used
+### AWS Services Used
 
 | Service | Purpose |
 |---|---|
@@ -73,7 +74,7 @@ Internet Gateway
 | **Amazon EBS** | Provides block storage for the EC2 instances |
 | **Terraform** | Provisions and manages the infrastructure as Code |
 
-## Terraform Resources
+### Terraform Resources
 
 The project provisions the following infrastructure resources:
 
@@ -92,11 +93,11 @@ The project provisions the following infrastructure resources:
 - RDS DB subnet group
 - RDS MySQL Multi-AZ instance
 
-## Security Design
+### Security Design
 
 The infrastructure uses multiple layers of AWS security controls.
 
-### EC2 Security Group
+#### EC2 Security Group
 
 The EC2 security group allows:
 
@@ -108,12 +109,13 @@ The EC2 security group allows:
 
 Outbound traffic is allowed to `0.0.0.0/0`.
 
-### RDS Security Group
+#### RDS Security Group
 
 The RDS security group allows:
 
 ```text
 EC2 Security Group → TCP 3306 → RDS
+```
 
 ## Deployment
 
@@ -125,45 +127,27 @@ EC2 Security Group → TCP 3306 → RDS
 - Git installed
 - AWS credentials configured locally
 
-### Initialize Terraform
-
-```bash
-terraform init
-
-
-add:
-
-```markdown
-### Validate the configuration
-
-```bash
-terraform validate
-
-### Review the execution plan
-
-```bash
-terraform plan
-
-
-### Deploy the infrastructure
-
-```bash
-terraform apply
-
-
-
-## Project Structure
+### Project Structure
 
 ```text
 aws-2-tier-infrastructure/
+├── README.md
 ├── main.tf
 ├── provider.tf
 ├── variables.tf
-├── terraform.tfvars
 ├── .gitignore
 ├── .terraform.lock.hcl
-└── aws_2_tier_diagram.png
-
+├── aws_2_tier_diagram.png
+└── screenshots/
+    ├── vpc-resource-map.png
+    ├── subnets.png
+    ├── route-tables.png
+    ├── internet-gateway.png
+    ├── ec2-instances.png
+    ├── rds-mysql.png
+    ├── web-server-a.png
+    └── web-server-b.png
+```
 
 ## Testing & Verification
 
@@ -200,6 +184,32 @@ The VPC Resource Map was used to verify:
 - EC2 instances in the public subnets
 - RDS in the private database subnets
 
+### Verification Evidence
+
+**VPC Resource Map**
+![VPC Resource Map](screenshots/vpc-resource-map.png)
+
+**Subnets**
+![Subnets](screenshots/subnets.png)
+
+**Route Tables**
+![Route Tables](screenshots/route-tables.png)
+
+**Internet Gateway**
+![Internet Gateway](screenshots/internet-gateway.png)
+
+**EC2 Instances**
+![EC2 Instances](screenshots/ec2-instances.png)
+
+**RDS MySQL**
+![RDS MySQL](screenshots/rds-mysql.png)
+
+**Web Server A**
+![Web Server A](screenshots/web-server-a.png)
+
+**Web Server B**
+![Web Server B](screenshots/web-server-b.png)
+
 ## Lessons Learned
 
 This project provided hands-on experience with:
@@ -221,15 +231,6 @@ This project focuses on core AWS networking, security, compute, database, and In
 
 The current architecture is **not intended to represent a production-grade deployment**. It is designed to demonstrate the fundamental building blocks of a two-tier AWS environment using Terraform.
 
-### Current Architecture Limitations
-
-- EC2 instances are directly accessible from the internet through public IP addresses.
-- There is no Application Load Balancer (ALB).
-- There is no NAT Gateway for private subnet outbound connectivity.
-- High availability for the application tier is limited to deploying EC2 instances across two Availability Zones.
-- Secrets are provided through Terraform variables rather than a dedicated secrets management service.
-- Monitoring, centralized logging, and automated alerting are not included.
-
 ### Production-Grade Next Step
 
 A future iteration of this architecture can introduce production-oriented components such as:
@@ -249,10 +250,11 @@ A future iteration of this architecture can introduce production-oriented compon
                       │
                  Private RDS
                   Multi-AZ
-                      
+
           NAT Gateway
           for private
           outbound access
+```
 
 ## Future Improvements
 
